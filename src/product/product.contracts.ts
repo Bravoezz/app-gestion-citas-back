@@ -1,22 +1,24 @@
-import { CreateProductDto } from "./dto/create-product.dto";
-import { UpdateProductDto } from "./dto/update-product.dto";
-import { Product } from "./entities/product.entity";
+import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
+import { Product } from './entities/product.entity';
 
-
-export abstract class IProductService {
-    abstract create(createProductDto: CreateProductDto): Promise<Product>;
-    abstract createMany(createProductDto: CreateProductDto[]): Promise<void>;
-	abstract findAll(): Promise<Product[]>;
-	abstract findOne(id: number): Promise<Product>;
-	abstract update(id: number, updateProductDto: UpdateProductDto): Promise<void>;
-	abstract remove(id: number): Promise<void>;
+export interface IProductService {
+	create(createProductDto: CreateProductDto): Promise<void>;
+	createMany(createProductDto: CreateProductDto[]): Promise<void>;
+	findAll(): Promise<Product[]>;
+	findOne(id: number): Promise<Product>;
+	update(id: number, updateProductDto: UpdateProductDto): Promise<void>;
+	remove(id: number): Promise<void>;
 }
 
-export abstract class IProductRepository {
-    abstract create(createProductDto: CreateProductDto): Promise<Product>;
-    abstract createMany(createProductDto: CreateProductDto[]): Promise<void>;
-	abstract findAll(): Promise<Product[]>;
-	abstract findOne(id: number): Promise<Product>;
-	abstract update(id: number, updateProductDto: UpdateProductDto): Promise<void>;
-	abstract remove(id: number): Promise<void>;
+export interface IProductRepository {
+	create(createProductDto: CreateProductDto): Promise<void>;
+	createMany(createProductDto: CreateProductDto[]): Promise<void>;
+	findAll(): Promise<Product[]>;
+	findOne(id: number): Promise<Product>;
+	update(id: number, updateProductDto: UpdateProductDto): Promise<void>;
+	remove(id: number): Promise<void>;
 }
+
+export const IProductServiceToken = Symbol.for('IProductService')
+export const IProductRepositoryToken = Symbol.for('IProductRepository')

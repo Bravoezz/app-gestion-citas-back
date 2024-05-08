@@ -1,19 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { IProductRepository, IProductService } from './product.contracts';
+import { IProductRepository, IProductRepositoryToken, IProductService } from './product.contracts';
 import { Product } from './entities/product.entity';
 
 @Injectable()
 export class ProductService implements IProductService {
-	constructor( private readonly productRepository: IProductRepository) {}
+	constructor(
+		@Inject(IProductRepositoryToken) private readonly productRepository: IProductRepository
+	) {}
 
 	async createMany(createProductDto: CreateProductDto[]): Promise<void> {
 		await this.productRepository.createMany(createProductDto)
 	}
 
-	async create(createProductDto: CreateProductDto): Promise<Product> {
-		throw new Error('Method not implemented.');
+	async create(createProductDto: CreateProductDto): Promise<void> {
+		await this.productRepository.create(createProductDto)
 	}
 
 	async findAll(): Promise<Product[]> {

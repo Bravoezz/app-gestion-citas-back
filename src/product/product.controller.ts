@@ -7,20 +7,27 @@ import {
 	Param,
 	Delete,
 	ParseArrayPipe,
+	Inject,
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { IProductService } from './product.contracts';
+import { IProductService, IProductServiceToken } from './product.contracts';
 import { ResponseEntity } from '../shared/response.entity';
 import { Product } from './entities/product.entity';
+import { ApiExtraModels, ApiOkResponse, ApiTags, getSchemaPath } from '@nestjs/swagger';
 
+@ApiTags('product')
 @Controller('product')
+@ApiExtraModels(ResponseEntity)
 export class ProductController {
-	constructor(private readonly productService: IProductService) {}
+	constructor(
+		@Inject(IProductServiceToken) private readonly productService: IProductService
+	) {}
 
 	@Post()
-	create(@Body() createProductDto: CreateProductDto) {
-		return this.productService.create(createProductDto);
+	async create(@Body() createProductDto: CreateProductDto) {
+		await this.productService.create(createProductDto);
+		return new ResponseEntity(true,'Producto creado correctamente', {})
 	}
 
 	@Post('create-many')
@@ -30,7 +37,22 @@ export class ProductController {
 	}
 
 	@Get()
-	async findAll() {
+	@ApiOkResponse({
+		schema: {
+		  allOf: [
+			{ $ref: getSchemaPath(ResponseEntity) },
+			{
+			  properties: {
+				data: {
+				  type: 'array',
+				  items: { $ref: getSchemaPath(Product) },
+				},
+			  },
+			},
+		  ],
+		},
+	})
+	async findAll(): Promise<ResponseEntity<Product[]>> {
 		const allData = await this.productService.findAll()
 		return new ResponseEntity<Product[]>(true, 'Productos encontrados correctamente', allData)
 	}

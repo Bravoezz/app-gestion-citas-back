@@ -12,8 +12,8 @@ export class ProductRepository implements IProductRepository {
 		@InjectRepository(Product) private readonly productRepo: Repository<Product>
 	) {}
 	
-    async create(createProductDto: CreateProductDto): Promise<Product> {
-		throw new Error('Method not implemented.');
+    async create(createProductDto: CreateProductDto): Promise<void> {
+		await this.productRepo.insert(createProductDto)
 	}
 
 	async createMany(createProductDtoList: CreateProductDto[]): Promise<void> {
