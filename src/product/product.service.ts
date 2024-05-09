@@ -23,14 +23,16 @@ export class ProductService implements IProductService {
 	}
 
 	async findOne(id: number): Promise<Product> {
-		throw new Error('Method not implemented.');
+		return this.productRepository.findOne(id)
 	}
 
 	async update(id: number, updateProductDto: UpdateProductDto): Promise<void> {
-		throw new Error('Method not implemented.');
+		await this.productRepository.update(id, updateProductDto)
+		return
 	}
 
 	async remove(id: number): Promise<void> {
-		throw new Error('Method not implemented.');
+		await this.productRepository.remove(id)
+		return
 	}
 }

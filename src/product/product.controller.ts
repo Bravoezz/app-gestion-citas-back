@@ -14,11 +14,10 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { IProductService, IProductServiceToken } from './product.contracts';
 import { ResponseEntity } from '../shared/response.entity';
 import { Product } from './entities/product.entity';
-import { ApiExtraModels, ApiOkResponse, ApiTags, getSchemaPath } from '@nestjs/swagger';
+import { ApiBody, ApiExtraModels, ApiOkResponse, ApiResponse, ApiTags, getSchemaPath } from '@nestjs/swagger';
 
 @ApiTags('product')
 @Controller('product')
-@ApiExtraModels(ResponseEntity)
 export class ProductController {
 	constructor(
 		@Inject(IProductServiceToken) private readonly productService: IProductService
@@ -27,37 +26,23 @@ export class ProductController {
 	@Post()
 	async create(@Body() createProductDto: CreateProductDto) {
 		await this.productService.create(createProductDto);
-		return new ResponseEntity(true,'Producto creado correctamente', {})
+		return {}
 	}
 
 	@Post('create-many')
 	async createMany(@Body(new ParseArrayPipe({ items: CreateProductDto})) createProductDtoList: CreateProductDto[]) {
 		await this.productService.createMany(createProductDtoList)
-		return new ResponseEntity(true,'Productos creados correctamente', {})
+		return {}
 	}
 
 	@Get()
-	@ApiOkResponse({
-		schema: {
-		  allOf: [
-			{ $ref: getSchemaPath(ResponseEntity) },
-			{
-			  properties: {
-				data: {
-				  type: 'array',
-				  items: { $ref: getSchemaPath(Product) },
-				},
-			  },
-			},
-		  ],
-		},
-	})
-	async findAll(): Promise<ResponseEntity<Product[]>> {
-		const allData = await this.productService.findAll()
-		return new ResponseEntity<Product[]>(true, 'Productos encontrados correctamente', allData)
+	@ApiResponse({ status: 200, description: 'Lista de productos', type: [Product] })
+	async findAll(): Promise<Product[]> {
+		return await this.productService.findAll()
 	}
 
 	@Get(':id')
+	@ApiResponse({ status: 200, description: 'Buscar producto por id', type: Product })
 	findOne(@Param('id') id: string) {
 		return this.productService.findOne(+id);
 	}

@@ -25,15 +25,17 @@ export class ProductRepository implements IProductRepository {
 	}
 
 	async findOne(id: number): Promise<Product> {
-		throw new Error('Method not implemented.');
+		return this.productRepo.findOneBy({id})
 	}
 
 	async update(id: number, updateProductDto: UpdateProductDto): Promise<void> {
-		throw new Error('Method not implemented.');
+		await this.productRepo.update({id},{...updateProductDto})
+		return
 	}
 
 	async remove(id: number): Promise<void> {
-		throw new Error('Method not implemented.');
+		await this.productRepo.delete({id})
+		return
 	}
 
 }
