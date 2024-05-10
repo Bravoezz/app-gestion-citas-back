@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Receta } from "src/receta/entities/receta.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -22,4 +23,7 @@ export class User {
     @ApiProperty()
 	@Column({ default: 'paciente' })
     type: string;
+
+	@OneToMany(() => Receta, (receta) => receta.user)
+	recetas: Receta[]
 }

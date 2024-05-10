@@ -18,6 +18,7 @@ export interface IProductRepository {
 	findOne(id: number): Promise<Product>;
 	update(id: number, updateProductDto: UpdateProductDto): Promise<void>;
 	remove(id: number): Promise<void>;
+	findByIds(ids: number[]): Promise<Product[]>;
 }
 
 export const IProductServiceToken = Symbol.for('IProductService')

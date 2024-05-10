@@ -13,5 +13,6 @@ import { Product } from './entities/product.entity';
 		{ provide: IProductRepositoryToken, useClass: ProductRepository },
 	],
 	controllers: [ProductController],
+	exports: [{ provide: IProductRepositoryToken, useClass: ProductRepository }],
 })
 export class ProductModule {}
