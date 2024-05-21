@@ -17,7 +17,7 @@ export class RecetaRepository {
 	}
 
 	async findAll(): Promise<Receta[]> {
-		return this.recetaRepo.find({relations:{user: true, productos: true}})
+		return this.recetaRepo.find({relations:{user: true, productos: true}, order: {id: 'desc'}})
 	}
 
 	async findOne(id: number): Promise<Receta> {
