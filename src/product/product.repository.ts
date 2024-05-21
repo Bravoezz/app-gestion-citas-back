@@ -21,7 +21,7 @@ export class ProductRepository implements IProductRepository {
 	}
 
 	async findAll(): Promise<Product[]> {
-		return this.productRepo.find({ order: {id: 'desc'}})
+		return this.productRepo.find({ order: {id: 'asc'}})
 	}
 
 	async findByIds(ids: number[]): Promise<Product[]> {

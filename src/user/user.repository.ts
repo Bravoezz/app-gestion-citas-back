@@ -15,7 +15,7 @@ export class UserRepository {
     }
 
 	async findAll(): Promise<User[]> {
-        return this.userRepo.find({order: {id: 'desc'}})
+        return this.userRepo.find({order: {id: 'asc'}})
     }
 
 	async findOne(id: number): Promise<User> {
