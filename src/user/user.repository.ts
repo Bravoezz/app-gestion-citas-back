@@ -10,6 +10,7 @@ export class UserRepository {
 	constructor(@InjectRepository(User) private readonly userRepo: Repository<User>) {}
 
 	async create(createUserDto: CreateUserDto): Promise<void> {
+        createUserDto.edad = createUserDto.edad.toString()
 		await this.userRepo.insert(createUserDto)
         return
     }
@@ -23,6 +24,7 @@ export class UserRepository {
     }
 
 	async update(id: number, updateUserDto: UpdateUserDto): Promise<void> {
+        updateUserDto.edad = updateUserDto.edad.toString()
         await this.userRepo.update({id}, updateUserDto)
         return
     }

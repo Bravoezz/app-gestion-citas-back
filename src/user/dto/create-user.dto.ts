@@ -11,7 +11,7 @@ export class CreateUserDto {
 	apellidos: string;
 
 	@ApiProperty()
-    @IsString()
+    // @IsString()
 	edad: string;
 
     @ApiProperty()

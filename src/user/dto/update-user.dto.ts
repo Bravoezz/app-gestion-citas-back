@@ -14,7 +14,7 @@ export class UpdateUserDto {
 
 	@ApiProperty()
     @IsOptional()
-    @IsString()
+    // @IsString()
 	edad?: string;
 
     @ApiProperty()
