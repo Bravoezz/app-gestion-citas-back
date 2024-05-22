@@ -24,7 +24,7 @@ export class Receta {
 	nombre?: string;
 
 	@ApiProperty()
-	@Column({ nullable: false })
+	@Column({type: 'numeric', nullable: false})
 	totalPrice: number;
 
 	@ApiProperty()
