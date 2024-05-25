@@ -10,7 +10,9 @@ export class UserRepository {
 	constructor(@InjectRepository(User) private readonly userRepo: Repository<User>) {}
 
 	async create(createUserDto: CreateUserDto): Promise<void> {
-        createUserDto.edad = createUserDto.edad.toString()
+        if (createUserDto.edad) {
+            createUserDto.edad = createUserDto.edad.toString()
+        }
 		await this.userRepo.insert(createUserDto)
         return
     }
@@ -19,12 +21,30 @@ export class UserRepository {
         return this.userRepo.find({order: {id: 'asc'}})
     }
 
+    async findMedics(): Promise<User[]> {
+        return this.userRepo.find({ where: {type: "Medico"}, order: {id: 'asc'}, relations:{ horarios: true}})
+    }
+
+    async findOneMedic(id: number): Promise<User> {
+        return this.userRepo.findOne({where: {id, type: "Medico"}, relations: { horarios: true} })
+    }
+    
+    async findPatients(): Promise<User[]> {
+        return this.userRepo.find({ where: {type: "Paciente"}, order: {id: 'asc'}, relations: {recetas: true}})
+    }
+
+    async findOnePatient(id: number): Promise<User> {
+        return this.userRepo.findOne({where: {id, type: "Paciente"}, relations: { recetas: true} })
+    }
+
 	async findOne(id: number): Promise<User> {
         return this.userRepo.findOneBy({id})
     }
 
 	async update(id: number, updateUserDto: UpdateUserDto): Promise<void> {
-        updateUserDto.edad = updateUserDto.edad.toString()
+        if (updateUserDto.edad) {
+            updateUserDto.edad = updateUserDto.edad.toString()
+        }
         await this.userRepo.update({id}, updateUserDto)
         return
     }

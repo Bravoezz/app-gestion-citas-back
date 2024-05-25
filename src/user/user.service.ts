@@ -17,6 +17,22 @@ export class UserService {
 		return this.userRepository.findAll();
 	}
 
+	async findMedics(): Promise<User[]> {
+        return this.userRepository.findMedics()
+    }
+
+	async findOneMedic(id: number): Promise<User> {
+        return this.userRepository.findOneMedic(id)
+    }
+    
+    async findPatients(): Promise<User[]> {
+        return this.userRepository.findPatients()
+    }
+
+    async findOnePatient(id: number): Promise<User> {
+        return this.userRepository.findOnePatient(id)
+    }
+
 	async findOne(id: number): Promise<User> {
 		return this.userRepository.findOne(id);
 	}
