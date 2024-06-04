@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, LoginUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
 import { User } from './entities/user.entity';
@@ -7,6 +7,10 @@ import { User } from './entities/user.entity';
 @Injectable()
 export class UserService {
 	constructor(private readonly userRepository: UserRepository) {}
+
+	async login(loginDto: LoginUserDto): Promise<User | null> {
+		return  this.userRepository.login(loginDto);
+	}
 
 	async create(createUserDto: CreateUserDto): Promise<void> {
 		await this.userRepository.create(createUserDto);

@@ -27,6 +27,10 @@ export class User {
 
 	@ApiProperty()
 	@Column({ nullable: true })
+	contra?: string;
+
+	@ApiProperty()
+	@Column({ nullable: true })
 	telefono?: string;
 
     @ApiProperty()

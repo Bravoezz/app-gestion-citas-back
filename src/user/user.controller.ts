@@ -8,7 +8,7 @@ import {
 	Delete,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, LoginUserDto, ResponseLoginDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
@@ -29,6 +29,19 @@ export class UserController {
 	@ApiResponse({ status: 200, description: 'Lista de usuarios', type: [User] })
 	async findAll() {
 		return await this.userService.findAll();
+	}
+
+	@Post('login')
+	@ApiResponse({
+		status: 201, description: 'Autenticar usuario, enviar el type Medico | Empleado | Paciente | etc',
+		type: ResponseLoginDto
+	})
+	async login(@Body() loginDto: LoginUserDto): Promise<ResponseLoginDto> {
+		const foundUser = await this.userService.login(loginDto)
+		if (!foundUser) {
+			return new ResponseLoginDto(false,'Usuario invalido', foundUser)
+		}
+		return new ResponseLoginDto(true,'Usuario autenticado correctamente', foundUser)
 	}
 
 	@Get("medicos")
