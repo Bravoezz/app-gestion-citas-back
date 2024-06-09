@@ -5,6 +5,7 @@ import * as dotenv from 'dotenv';
 import { User } from 'src/user/entities/user.entity';
 import { Receta } from 'src/receta/entities/receta.entity';
 import { Horario } from 'src/horario/entities/horario.entity';
+import { Cita } from '../cita/entities/cita.entity';
 
 dotenv.config()
 
@@ -16,7 +17,7 @@ export const DatabaseModule: DynamicModule = TypeOrmModule.forRoot({
 	password: process.env.DB_PASSWORD,
 	database: process.env.DB_NAME,
 	ssl: true, //! descomenta esto cuando vallas a deployar
-	entities: [Product, User, Receta, Horario], // esto o el autoload en true
+	entities: [Product, User, Receta, Horario, Cita], // esto o el autoload en true
 	// autoLoadEntities: true,
 	synchronize: true,
 });

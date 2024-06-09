@@ -22,6 +22,22 @@ export class User {
 	edad: string;
 
 	@ApiProperty()
+	@Column({nullable: true})
+	dni?: string;
+
+	@ApiProperty()
+	@Column({nullable: true})
+	direccion?: string;
+
+	@ApiProperty()
+	@Column({nullable: true})
+	sexo?: string;
+
+	@ApiProperty()
+	@Column({nullable: true})
+	fechaNacimiento?: Date;
+
+	@ApiProperty()
 	@Column({ nullable: true })
 	correo?: string;
 
