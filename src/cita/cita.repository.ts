@@ -5,6 +5,7 @@ import { Repository, DataSource } from 'typeorm';
 import { CitaDto } from './dto/cita.dto';
 import { SearchCita } from './dto/search-cita.dto';
 import { User } from '../user/entities/user.entity';
+import { CreateCitaDto } from './dto/create-cita.dto';
 
 @Injectable()
 export class CitaRepository {
@@ -14,12 +15,12 @@ export class CitaRepository {
 		@InjectDataSource() private readonly dataSource: DataSource
 	) {	}
 
-	async insert(citaDto: CitaDto): Promise<Cita> {
+	async insert(citaDto: CreateCitaDto): Promise<CitaDto> {
 		const cita = this.citaRepo.create(citaDto)
 		return this.citaRepo.save(cita)
 	}
 
-	async list(seachCita: SearchCita): Promise<Cita[]> {
+	async list(seachCita: SearchCita): Promise<CitaDto[]> {
 		const queryBuild = this.dataSource
 			.getRepository(Cita)
 			.createQueryBuilder('cita')

@@ -25,6 +25,16 @@ export class CreateUserDto {
     @IsString()
 	telefono?: string;
 
+	@ApiProperty()
+	@IsOptional()
+	@IsString()
+	contra?: string;
+
+	@ApiProperty()
+	@IsOptional()
+	@IsString()
+	dni?: string;
+
     @ApiProperty()
     @IsOptional()
     @IsString()

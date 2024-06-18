@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CitaDto {
+export class CreateCitaDto {
 	@ApiProperty()
 	fechaCita: Date;
 
@@ -9,12 +9,6 @@ export class CitaDto {
 
 	@ApiProperty()
 	observaciones: string;
-
-	@ApiProperty()
-	inicioCita?: string;
-
-	@ApiProperty()
-	finCita?: string;
 
 	@ApiProperty()
 	idUsuarioCreador: number;

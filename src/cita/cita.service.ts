@@ -3,6 +3,7 @@ import { Cita } from './entities/cita.entity';
 import { CitaDto } from './dto/cita.dto';
 import { CitaRepository } from './cita.repository';
 import { SearchCita } from './dto/search-cita.dto';
+import { CreateCitaDto } from './dto/create-cita.dto';
 
 @Injectable()
 export class CitaService {
@@ -14,7 +15,7 @@ export class CitaService {
 		return await this.citaRepository.list(seachCita);
 	}
 
-	async insert(cita: CitaDto): Promise<CitaDto> {
+	async insert(cita: CreateCitaDto): Promise<CitaDto> {
 		return await this.citaRepository.insert(cita)
 	}
 }

@@ -14,7 +14,6 @@ export class UpdateUserDto {
 
 	@ApiProperty()
     @IsOptional()
-    // @IsString()
 	edad?: string;
 
     @ApiProperty()
@@ -26,6 +25,16 @@ export class UpdateUserDto {
     @IsOptional()
     @IsString()
 	telefono?: string;
+
+	@ApiProperty()
+	@IsOptional()
+	@IsString()
+	contra?: string;
+
+	@ApiProperty()
+	@IsOptional()
+	@IsString()
+	dni?: string;
 
     @ApiProperty()
     @IsOptional()

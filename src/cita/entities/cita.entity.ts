@@ -9,6 +9,12 @@ export class Cita {
 	@Column()
 	fechaCita: Date;
 
+	@Column({ type: 'time', nullable: true })
+	inicioCita?: string;
+
+	@Column({ type: 'time', nullable: true })
+	finCita?: string;
+
 	@Column({default: 'Pendiente'})
 	estado: string;
 
